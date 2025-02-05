@@ -6,6 +6,18 @@
 </head>
 <body>
   <h1>歡迎來到我的部落格</h1>
+<!-- 新增文章的表單 -->
+<div class="new-post">
+  <h2>發表新文章</h2>
+  <form id="postForm">
+    <input type="text" id="postTitle" placeholder="標題" required>
+    <textarea id="postContent" placeholder="內容" required></textarea>
+    <button type="submit">發布文章</button>
+  </form>
+</div>
+
+<!-- 文章列表容器 -->
+<div id="postsContainer"></div>
   <div class="post">
     <h2>我的第一篇文章</h2>
     <p>這裡是文章內容...(內文三百字)</p>
@@ -19,18 +31,7 @@
     <p>這裡是文章內容...(內文三百字)</p>
     <small>發布日期：2023-10-03</small>
   </div>
-<!-- 新增文章的表單 -->
-<div class="new-post">
-  <h2>發表新文章</h2>
-  <form id="postForm">
-    <input type="text" id="postTitle" placeholder="標題" required>
-    <textarea id="postContent" placeholder="內容" required></textarea>
-    <button type="submit">發布文章</button>
-  </form>
-</div>
 
-<!-- 文章列表容器 -->
-<div id="postsContainer"></div>
 <script>
   // 點擊標題時彈出提示
   document.querySelector('h1').addEventListener('click', function() {
