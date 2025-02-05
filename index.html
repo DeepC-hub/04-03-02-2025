@@ -19,11 +19,71 @@
     <p>這裡是文章內容...(內文三百字)</p>
     <small>發布日期：2023-10-03</small>
   </div>
+<!-- 新增文章的表單 -->
+<div class="new-post">
+  <h2>發表新文章</h2>
+  <form id="postForm">
+    <input type="text" id="postTitle" placeholder="標題" required>
+    <textarea id="postContent" placeholder="內容" required></textarea>
+    <button type="submit">發布文章</button>
+  </form>
+</div>
+
+<!-- 文章列表容器 -->
+<div id="postsContainer"></div>
 <script>
   // 點擊標題時彈出提示
   document.querySelector('h1').addEventListener('click', function() {
     alert('歡迎！');
   });
+</script>
+<script>
+  // 從 localStorage 加載已保存的文章
+  let posts = JSON.parse(localStorage.getItem('posts')) || [];
+
+  // 表單提交事件
+  document.getElementById('postForm').addEventListener('submit', function(e) {
+    e.preventDefault(); // 阻止表單默認提交
+
+    // 獲取輸入內容
+    const title = document.getElementById('postTitle').value;
+    const content = document.getElementById('postContent').value;
+    const date = new Date().toISOString().split('T')[0]; // 生成當前日期
+
+    // 新增文章對象
+    const newPost = {
+      title: title,
+      content: content,
+      date: date
+    };
+
+    posts.push(newPost);
+    localStorage.setItem('posts', JSON.stringify(posts)); // 保存到本地存儲
+
+    // 清空表單
+    this.reset();
+    renderPosts(); // 重新渲染文章列表
+  });
+
+  // 渲染文章列表的函數
+  function renderPosts() {
+    const container = document.getElementById('postsContainer');
+    container.innerHTML = ''; // 清空容器
+
+    posts.forEach(post => {
+      const postHTML = `
+        <div class="post">
+          <h2>${post.title}</h2>
+          <p>${post.content}</p>
+          <small>發布日期：${post.date}</small>
+        </div>
+      `;
+      container.innerHTML += postHTML;
+    });
+  }
+
+  // 初始渲染
+  renderPosts();
 </script>
 </body>
 </html>
